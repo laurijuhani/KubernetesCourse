@@ -1,3 +1,5 @@
+const express = require('express');
+const app = express();
 
 const generateRandomString = () => {
   return [...Array(32)]
@@ -14,3 +16,15 @@ const logString = () => {
 
 logString();
 setInterval(logString, 5000);
+
+app.get('/', (req, res) => {
+  res.json({
+    timestamp: new Date().toISOString(),
+    randomString: randomString
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running in port ${PORT}`);
+});
