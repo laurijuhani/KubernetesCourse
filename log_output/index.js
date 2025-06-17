@@ -1,26 +1,15 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
 
-const generateRandomString = () => {
-  return [...Array(32)]
-    .map(() => Math.floor(Math.random() * 16).toString(16))
-    .join('');
-}
-
-const randomString = generateRandomString();
-
-const logString = () => {
-  const timestamp = new Date().toISOString();
-  console.log(`${timestamp}: ${randomString}`);
-}
-
-logString();
-setInterval(logString, 5000);
+const LOG_FILE = '/app/logs/output.log';
 
 app.get('/', (req, res) => {
-  res.json({
-    timestamp: new Date().toISOString(),
-    randomString: randomString
+  fs.readFile(LOG_FILE, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).send('Log file not found or unreadable.');
+    }
+    res.type('text/plain').send(data);
   });
 });
 

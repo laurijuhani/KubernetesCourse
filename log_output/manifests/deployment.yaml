@@ -12,7 +12,19 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: log-volume
+          emptyDir: {}
       containers:
         - name: log-output
           image: log-output:latest
           imagePullPolicy: Never
+          volumeMounts:
+            - name: log-volume
+              mountPath: /app/logs
+        - name: log-output-generator
+          image: log-output-generator:latest
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: log-volume
+              mountPath: /app/logs
