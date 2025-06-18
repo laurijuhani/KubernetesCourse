@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-pong
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ping-pong
+  template:
+    metadata:
+      labels:
+        app: ping-pong
+    spec:
+      volumes:
+        - name: log-volume
+          persistentVolumeClaim:
+            claimName: image-claim
+      containers:
+      - name: ping-pong
+        image: ping-pong:latest
+        imagePullPolicy: Never
+        volumeMounts:
+        - name: log-volume
+          mountPath: /app/logs

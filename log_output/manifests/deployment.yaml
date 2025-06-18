@@ -14,7 +14,8 @@ spec:
     spec:
       volumes:
         - name: log-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: image-claim
       containers:
         - name: log-output
           image: log-output:latest
