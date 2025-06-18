@@ -1,14 +1,11 @@
-import express from 'express';
+import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-
-const app = express();
-const PORT = process.env.PORT || 3000;
 
 const CACHE_DIR = '/app/cache';
 const IMAGE_FILE = path.join(CACHE_DIR, 'image.jpg');
 const META_FILE = path.join(CACHE_DIR, 'meta.json');
-const CACHE_DURATION = 10 * 60 * 1000;
+const CACHE_DURATION = 10 * 60 * 1000; 
 
 interface MetaData {
   lastFetched: number;
@@ -32,24 +29,15 @@ const shouldFetchNewImage = () => {
   return (currentTime - metaData.lastFetched) > CACHE_DURATION;
 }
 
-
-app.get('/image', async (_req, res) => {
-  try {
-    if (shouldFetchNewImage()) {
-      await fetchAndCacheImage();
-    } 
-    res.sendFile(IMAGE_FILE);
-  } catch (err) {
-    res.status(500).send('Failed to fetch or serve image');
+export const GET = async () => {
+  if (shouldFetchNewImage()) {
+    await fetchAndCacheImage();
   }
-});
-
-
-app.get('/', (_req, res) => {
-  res.sendFile(path.join(__dirname, '../html/index.html'));
-});
-
-
-app.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`);
-});
+  const imageBuffer = fs.readFileSync(IMAGE_FILE);
+  return new NextResponse(imageBuffer, {
+    headers: {
+      'Content-Type': 'image/jpeg',
+      'Cache-Control': 'no-store',
+    },
+  });
+}

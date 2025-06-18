@@ -20,9 +20,6 @@ spec:
         - name: todo-app
           image: todo-app:latest
           imagePullPolicy: Never
-          env:
-            - name: PORT
-              value: "3000"
           volumeMounts:
             - name: the-project-volume
               mountPath: /app/cache
