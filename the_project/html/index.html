@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The project App</title>
+  <meta name="description" content="A simple DevOps with Kubernetes 2025 project app with image and todos.">
+</head>
+<body>
+  <h1>The project App</h1>
+  <img src="/image" style="max-width:30rem;height:auto;" />
+  <form id="todo-form">
+    <input type="text" id="todo-input" maxlength="140" required />
+    <button type="submit">Send</button>
+  </form>
+  <ul id="todo-list">
+    <li>Learn JavaScript</li>
+    <li>Learn React</li>
+    <li>Build a project</li>
+  </ul>
+
+  <p>DevOps with Kubernetes 2025</p>
+
+
+  <script>
+    document.getElementById('todo-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const input = document.getElementById('todo-input');
+      if (input.value.length > 140) {
+        alert('Todo must be 140 characters or less!');
+        return;
+      }
+
+      const li = document.createElement('li');
+      li.textContent = input.value;
+      document.getElementById('todo-list').appendChild(li);
+      input.value = '';
+    });
+  </script>
+</body>
+</html>

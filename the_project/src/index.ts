@@ -17,7 +17,7 @@ interface MetaData {
 const fetchAndCacheImage = async () => {
   const res = await fetch('https://picsum.photos/1200');
   const arrayBuffer = await res.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
+  const buffer = Buffer.from(arrayBuffer);  
   fs.writeFileSync(IMAGE_FILE, buffer); 
   const metaData: MetaData = { lastFetched: Date.now() };
   fs.writeFileSync(META_FILE, JSON.stringify(metaData));
@@ -44,12 +44,9 @@ app.get('/image', async (_req, res) => {
   }
 });
 
+
 app.get('/', (_req, res) => {
-  res.send(`
-    <h1>The project App</h1>
-    <img src="/image" style="max-width:100%;height:auto;" />
-    <p>DevOps with Kubernetes 2025</p>
-  `);
+  res.sendFile(path.join(__dirname, '../html/index.html'));
 });
 
 
