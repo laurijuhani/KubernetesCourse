@@ -12,14 +12,7 @@ spec:
       labels:
         app: ping-pong
     spec:
-      volumes:
-        - name: log-volume
-          persistentVolumeClaim:
-            claimName: image-claim
       containers:
       - name: ping-pong
         image: ping-pong:latest
         imagePullPolicy: Never
-        volumeMounts:
-        - name: log-volume
-          mountPath: /app/logs

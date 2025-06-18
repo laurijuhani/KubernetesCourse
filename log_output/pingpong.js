@@ -1,21 +1,15 @@
 const express = require('express');
 const app = express();
-const fs = require('fs');
-const path = '/app/logs/pingpong-count.txt';
 
-const incrementCounter = () => {
-  let count = 0;
-  if (fs.existsSync(path)) {
-    count = parseInt(fs.readFileSync(path, 'utf8'));
-  }
-  count++;
-  fs.writeFileSync(path, count.toString());
-  return count;
-}
+let count = 0; 
+
 
 app.get('/pingpong', (req, res) => {
-  const count = incrementCounter();
-  res.send(`pong ${count}`);
+  res.send(`pong ${count++}`);
+});
+
+app.get('/pings', (req, res) => {
+  res.json({ count }); 
 });
 
 const PORT = process.env.PORT || 3000;
