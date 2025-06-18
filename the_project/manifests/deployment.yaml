@@ -12,6 +12,10 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+        - name: the-project-volume
+          persistentVolumeClaim:
+            claimName: the-project-claim
       containers:
         - name: todo-app
           image: todo-app:latest
@@ -19,3 +23,6 @@ spec:
           env:
             - name: PORT
               value: "3000"
+          volumeMounts:
+            - name: the-project-volume
+              mountPath: /app/cache
