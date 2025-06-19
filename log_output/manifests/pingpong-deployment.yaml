@@ -17,3 +17,6 @@ spec:
       - name: ping-pong
         image: ping-pong:latest
         imagePullPolicy: Never
+        envFrom:
+        - configMapRef:
+            name: ping-pong-config

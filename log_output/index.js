@@ -20,12 +20,14 @@ const getData = (file, defaultValue = '') => {
 app.get('/', async (req, res) => {
   try {
     const logs = getData(LOG_FILE, 'No logs yet.');
+    const lastLine = logs.trim().split('\n').pop();
     const count = await fetch(PINGPONG_URL);
     const countText = await count.json();
     res.type('text/plain').send(`
       file content: ${information}\n
       env variable: ${message}\n
-      ${logs}\nPing / Pongs: ${countText.count}`
+      ${lastLine}\n
+      Ping / Pongs: ${countText.count}`
     );
   } catch (error) {
     res.status(500).send('Error reading log files');
