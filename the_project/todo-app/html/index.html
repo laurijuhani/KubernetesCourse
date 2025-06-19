@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The project App</title>
+  <meta name="description">
+</head>
+<body>
+  <h1>The project App</h1>
+  <img src="/image" style="max-width:30rem;height:auto;" />
+  <form id="todo-form">
+    <input type="text" id="todo-input" maxlength="140" required />
+    <button type="submit">Create todo</button>
+  </form>
+  <ul id="todo-list"></ul>
+
+  <p>DevOps with Kubernetes 2025</p>
+
+
+  <script>
+    const backendUrl = '%%BACKEND_URL%%';
+
+    async function fetchTodos() {
+      const res = await fetch(backendUrl + '/todos');
+      const todos = await res.json();
+      const ul = document.getElementById('todo-list');
+      ul.innerHTML = '';
+      todos.forEach(todo => {
+        const li = document.createElement('li');
+        li.textContent = todo;
+        ul.appendChild(li);
+      });
+    }
+
+    document.getElementById('todo-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const input = document.getElementById('todo-input');
+      if (input.value.length > 140) {
+        alert('Todo must be 140 characters or less!');
+        return;
+      }
+      await fetch(backendUrl + '/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ todo: input.value })
+      });
+      input.value = '';
+      fetchTodos();
+    });
+
+    fetchTodos();
+  </script>
+</body>
+</html>

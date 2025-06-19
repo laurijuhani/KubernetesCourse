@@ -21,6 +21,9 @@ spec:
         - name: todo-app
           image: todo-app:latest
           imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: todo-app-config
           volumeMounts:
             - name: the-project-volume
               mountPath: /app/cache
