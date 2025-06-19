@@ -17,6 +17,12 @@ spec:
         - name: log-volume
           persistentVolumeClaim:
             claimName: image-claim
+        - name: config-volume
+          configMap:
+            name: log-output-config
+            items:
+              - key: information.txt
+                path: information.txt
       containers:
         - name: log-output
           image: log-output:latest
@@ -24,6 +30,15 @@ spec:
           volumeMounts:
             - name: log-volume
               mountPath: /app/logs
+            - name: config-volume
+              mountPath: /app/config
+              readOnly: true
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: MESSAGE
         - name: log-output-generator
           image: log-output-generator:latest
           imagePullPolicy: Never
