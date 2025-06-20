@@ -1,5 +1,6 @@
 import express from 'express';
 import { Pool } from 'pg';
+import morgan from 'morgan';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -41,6 +42,7 @@ const initDb = async (retries=3, delay=3000) => {
 
 initDb();
 
+app.use(morgan('combined'));
 app.use(express.json());
 
 app.get('/todos', async (_req, res) => {
@@ -55,9 +57,11 @@ app.post('/todos', async (req, res) => {
   if (typeof todo === 'string' && todo.length > 0 && todo.length <= 140) {
     const client = await pool.connect();
     await client.query('INSERT INTO todos (todo) VALUES ($1)', [todo]);
+    console.log(`New todo added: "${todo}"`);
     res.status(201).end();
     client.release();
   } else {
+    console.warn(`Rejected todo: "${todo}" (length: ${todo ? todo.length : 0})`);
     res.status(400).json({ error: 'Invalid todo input' });
   }
 });
