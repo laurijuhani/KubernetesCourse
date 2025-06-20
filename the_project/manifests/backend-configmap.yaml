@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: project
+data:
+  PGHOST: "project-postgres-svc"
+  PGUSER: "projectuser"
+  PGPASSWORD: "projectpassword"
+  PGDATABASE: "projectdb"
+  PGPORT: "5432"
+  PORT: "3000"

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: project-postgres
+  namespace: project
+spec:
+  selector:
+    matchLabels:
+      app: project-postgres
+  serviceName: project-postgres-svc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: project-postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:17-alpine
+        env:
+        - name: POSTGRES_DB
+          value: projectdb
+        - name: POSTGRES_USER
+          value: projectuser
+        - name: POSTGRES_PASSWORD
+          value: projectpassword
+        ports:
+        - containerPort: 5432
+          name: web
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: pgdata
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
