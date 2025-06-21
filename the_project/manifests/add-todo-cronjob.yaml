@@ -11,8 +11,8 @@ spec:
         spec:
           containers:
           - name: add-todo
-            image: todo-job:latest
-            imagePullPolicy: Never
+            image: TODO_JOB
+            imagePullPolicy: Always
             env:
             - name: BACKEND_URL
               value: "http://todo-backend-svc:3000"

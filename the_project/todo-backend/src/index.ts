@@ -45,14 +45,14 @@ initDb();
 app.use(morgan('combined'));
 app.use(express.json());
 
-app.get('/todos', async (_req, res) => {
+app.get('/', async (_req, res) => {
   const client = await pool.connect();
   const result = await client.query('SELECT todo FROM todos');
   res.json(result.rows.map(row => row.todo));
   client.release();
 });
 
-app.post('/todos', async (req, res) => {
+app.post('/', async (req, res) => {
   const todo = req.body.todo;
   if (typeof todo === 'string' && todo.length > 0 && todo.length <= 140) {
     const client = await pool.connect();

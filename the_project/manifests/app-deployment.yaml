@@ -19,8 +19,8 @@ spec:
             claimName: the-project-claim
       containers:
         - name: todo-app
-          image: todo-app:latest
-          imagePullPolicy: Never
+          image: TODO_APP
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: todo-app-config
