@@ -25,8 +25,8 @@ spec:
                 path: information.txt
       containers:
         - name: log-output
-          image: log-output:latest
-          imagePullPolicy: Never
+          image: laurijuhani/log-output:3.2
+          imagePullPolicy: Always
           volumeMounts:
             - name: log-volume
               mountPath: /app/logs
@@ -40,8 +40,8 @@ spec:
                   name: log-output-config
                   key: MESSAGE
         - name: log-output-generator
-          image: log-output-generator:latest
-          imagePullPolicy: Never
+          image: laurijuhani/log-output-generator:3.2
+          imagePullPolicy: Always
           volumeMounts:
             - name: log-volume
               mountPath: /app/logs

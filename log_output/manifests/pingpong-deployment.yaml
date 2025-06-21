@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
       - name: ping-pong
-        image: ping-pong:latest
-        imagePullPolicy: Never
+        image: laurijuhani/ping-pong:3.2
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: ping-pong-config
