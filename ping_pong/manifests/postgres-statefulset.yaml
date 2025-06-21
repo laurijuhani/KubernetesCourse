@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pingpong-postgres
+  namespace: exercises
+spec:
+  serviceName: pingpong-postgres-svc
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: pingpong-postgres
+  template:
+    metadata:
+      labels:
+        app: pingpong-postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:17-alpine
+        env:
+        - name: POSTGRES_DB
+          value: pingpong
+        - name: POSTGRES_USER
+          value: pingpong
+        - name: POSTGRES_PASSWORD
+          value: pingpong
+        ports:
+        - name: web
+          containerPort: 5432
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+  volumeClaimTemplates:
+  - metadata:
+      name: pgdata
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi

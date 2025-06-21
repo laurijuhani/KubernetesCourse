@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ping-pong
+  namespace: exercises
 spec:
   replicas: 1
   selector:
@@ -13,6 +14,9 @@ spec:
         app: ping-pong
     spec:
       containers:
-        - name: ping-pong
-          image: ping-pong:latest
-          imagePullPolicy: Never
+      - name: ping-pong
+        image: laurijuhani/ping-pong:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: ping-pong-config
