@@ -34,4 +34,5 @@
 ### Chapter 4 
 
 - [3.1.](https://github.com/laurijuhani/KubernetesCourse/tree/3.1/ping_pong)
-- [3.2.](https://github.com/laurijuhani/KubernetesCourse/tree/3.1/log_output)
+- [3.2.](https://github.com/laurijuhani/KubernetesCourse/tree/3.2/log_output)
+- [3.3.](https://github.com/laurijuhani/KubernetesCourse/tree/3.3/log_output)
