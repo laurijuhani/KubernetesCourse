@@ -10,7 +10,6 @@ env:
   GKE_ZONE: europe-north1-b
   REGISTRY: europe-north1-docker.pkg.dev
   REPOSITORY: k8s-repo
-  SERVICE: dwk-environments
   BRANCH: ${{ github.ref_name }}
 
 jobs: 
@@ -82,5 +81,4 @@ jobs:
           kustomize edit set image TODO_BACKEND=$BACKEND_IMAGE_TAG
           kustomize edit set image TODO_JOB=$JOB_IMAGE_TAG
           kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
