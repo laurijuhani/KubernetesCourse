@@ -71,10 +71,14 @@ jobs:
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
 
-
-      - name: Deploy
+      - name: Inject BACKEND_URL into kustomization.yaml
         env:
           BACKEND_URL: ${{ secrets.BACKEND_URL }}
+        run: |
+          sed -i "s|BACKEND_URL=REPLACE_ME|BACKEND_URL=$BACKEND_URL|g" the_project/kustomization.yaml
+
+
+      - name: Deploy
         run: |-
           cd the_project
           kustomize edit set image TODO_APP=$APP_IMAGE_TAG
