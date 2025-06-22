@@ -31,5 +31,4 @@ jobs:
 
     - name: Delete namespace
       run: |
-        BRANCH_NAME="${{ github.ref_name }}"
-        kubectl delete namespace $BRANCH_NAME || true
+        kubectl delete namespace ${GITHUB_REF#refs/heads/} || true
