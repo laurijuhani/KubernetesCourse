@@ -79,8 +79,13 @@ jobs:
 
 
       - name: Deploy
+        env:
+          NAMESPACE: ${{ github.ref_name == 'main' && 'project' || github.ref_name }}
         run: |-
           cd the_project
+          kubectl create namespace $NAMESPACE || true
+          kubectl config set-context --current --namespace=$NAMESPACE
+          kustomize edit set namespace $NAMESPACE
           kustomize edit set image TODO_APP=$APP_IMAGE_TAG
           kustomize edit set image TODO_BACKEND=$BACKEND_IMAGE_TAG
           kustomize edit set image TODO_JOB=$JOB_IMAGE_TAG
