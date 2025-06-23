@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: todo-backup-cronjob
+  namespace: project
+spec:
+  schedule: "0 2 * * *"   
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: google/cloud-sdk:alpine
+            env:
+            - name: PGPASSWORD
+              value: projectpassword
+            volumeMounts:
+            - name: gcs-key
+              mountPath: /secrets
+              readOnly: true
+            command:
+            - /bin/sh
+            - -c
+            - |
+              export GOOGLE_APPLICATION_CREDENTIALS=/secrets/dwk-gke-463515-3552a7781b71.json
+              export BACKUP_FILE="/tmp/backup-$(date +\%F).sql"
+              pg_dump -h project-postgres-svc -U projectuser -d projectdb -f $BACKUP_FILE
+              gsutil auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
+              gsutil cp $BACKUP_FILE gs://laurijuhani-project-backup-bucket/
+          restartPolicy: OnFailure
+          volumes:
+          - name: gcs-key
+            secret:
+              secretName: gcs-backup-sa
