@@ -17,6 +17,13 @@ spec:
       containers:
       - name: postgres
         image: postgres:17-alpine
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "5Mi"
+          limits:
+            cpu: "150m"
+            memory: "40Mi"
         env:
         - name: POSTGRES_DB
           value: projectdb

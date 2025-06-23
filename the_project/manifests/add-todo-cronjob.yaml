@@ -13,6 +13,13 @@ spec:
           - name: add-todo
             image: TODO_JOB
             imagePullPolicy: Always
+            resources:
+              requests:
+                cpu: "10m"
+                memory: "5Mi"
+              limits:
+                cpu: "50m"
+                memory: "44Mi"
             env:
             - name: BACKEND_URL
               value: "http://todo-backend-svc:3000"

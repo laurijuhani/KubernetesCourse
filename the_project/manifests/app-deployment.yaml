@@ -23,6 +23,13 @@ spec:
         - name: todo-app
           image: TODO_APP
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "5m"
+              memory: "5Mi"
+            limits:
+              cpu: "50m"
+              memory: "40Mi"
           envFrom:
             - configMapRef:
                 name: todo-app-config
