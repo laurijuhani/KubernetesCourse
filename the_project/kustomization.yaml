@@ -11,6 +11,7 @@ resources:
   - manifests/backend-configmap.yaml
   - manifests/postgres-service.yaml
   - manifests/postgres-statefulset.yaml
+  - manifests/backup-cronjob.yaml
   - manifests/pv/persistentvolumeclaim.yaml
   
 images:
