@@ -20,10 +20,10 @@ spec:
         resources:
           requests:
             cpu: "10m"
-            memory: "5Mi"
+            memory: "64Mi"
           limits:
             cpu: "150m"
-            memory: "40Mi"
+            memory: "128Mi"
         env:
         - name: POSTGRES_DB
           value: projectdb
@@ -31,13 +31,14 @@ spec:
           value: projectuser
         - name: POSTGRES_PASSWORD
           value: projectpassword
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: trust
         ports:
         - containerPort: 5432
           name: web
         volumeMounts:
         - name: pgdata
           mountPath: /var/lib/postgresql/data
-          subPath: postgres
   volumeClaimTemplates:
   - metadata:
       name: pgdata

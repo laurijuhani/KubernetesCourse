@@ -17,6 +17,7 @@ const pool = new Pool({
   password: PGPASSWORD,
   database: PGDATABASE,
   port: PGPORT ? parseInt(PGPORT, 10) : undefined,
+  ssl: false
 });
 
 const initDb = async (retries=3, delay=3000) => {
@@ -63,6 +64,17 @@ app.post('/', async (req, res) => {
   } else {
     console.warn(`Rejected todo: "${todo}" (length: ${todo ? todo.length : 0})`);
     res.status(400).json({ error: 'Invalid todo input' });
+  }
+});
+
+app.get('/healthz', async (_req, res) => {
+  try {
+    const client = await pool.connect();
+    await client.query('SELECT 1');
+    client.release();
+    res.status(200).send('OK');
+  } catch (err) {
+    res.status(500).send('DB not reachable');
   }
 });
 

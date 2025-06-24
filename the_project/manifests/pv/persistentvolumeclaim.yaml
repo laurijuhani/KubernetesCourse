@@ -4,9 +4,9 @@ metadata:
   name: the-project-claim
   namespace: project
 spec:
-  storageClassName: standard
+  storageClassName: project-pv
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 200Mi

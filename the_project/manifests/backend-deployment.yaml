@@ -16,14 +16,26 @@ spec:
       containers:
       - name: todo-backend
         image: TODO_BACKEND
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         resources:
           requests:
-            cpu: "5m"
-            memory: "5Mi"
+            cpu: "10m"
+            memory: "64Mi"
           limits:
-            cpu: "50m"
-            memory: "40Mi"
+            cpu: "150m"
+            memory: "128Mi"
         envFrom:
         - configMapRef:
             name: backend-config
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 2
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 20
+          periodSeconds: 10
