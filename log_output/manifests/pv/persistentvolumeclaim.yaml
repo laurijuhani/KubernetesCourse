@@ -4,9 +4,9 @@ metadata:
   name: image-claim
   namespace: exercises
 spec:
-  storageClassName: standard
+  storageClassName: log-pv
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 100Mi

@@ -15,8 +15,16 @@ spec:
     spec:
       containers:
       - name: ping-pong
-        image: laurijuhani/ping-pong:3.4
-        imagePullPolicy: Always
+        image: ping-pong:latest
+        imagePullPolicy: Never
         envFrom:
         - configMapRef:
             name: ping-pong-config
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - nc -z $PGHOST $PGPORT
+          initialDelaySeconds: 3
+          periodSeconds: 5
