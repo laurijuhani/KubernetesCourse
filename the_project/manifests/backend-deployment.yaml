@@ -17,6 +17,9 @@ spec:
       - name: todo-backend
         image: TODO_BACKEND
         imagePullPolicy: Never
+        env:
+          - name: NATS_URL
+            value: nats://my-nats.project.svc.cluster.local:4222
         resources:
           requests:
             cpu: "10m"

@@ -10,3 +10,4 @@ data:
   PGDATABASE: "projectdb"
   PGPORT: "5432"
   PORT: "3000"
+  NATS_URL: "nats://my-nats:4222"

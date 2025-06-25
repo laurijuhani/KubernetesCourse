@@ -53,3 +53,4 @@
 - [4.3.](https://github.com/laurijuhani/KubernetesCourse/tree/4.3/prometheus)
 - [4.4.](https://github.com/laurijuhani/KubernetesCourse/tree/4.4/ping_pong)
 - [4.5.](https://github.com/laurijuhani/KubernetesCourse/tree/4.5/the_project)
+- [4.6.](https://github.com/laurijuhani/KubernetesCourse/tree/4.6/the_project)
