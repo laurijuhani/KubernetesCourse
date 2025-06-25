@@ -13,7 +13,14 @@
     <input type="text" id="todo-input" maxlength="140" required />
     <button type="submit">Create todo</button>
   </form>
+
+  <h3>Todo</h3>
   <ul id="todo-list"></ul>
+
+
+  <h3>Done</h3>
+  <ul id="done-list"></ul>
+
 
   <p>DevOps with Kubernetes 2025</p>
 
@@ -24,14 +31,34 @@
     async function fetchTodos() {
       const res = await fetch(backendUrl + '/todos');
       const todos = await res.json();
-      const ul = document.getElementById('todo-list');
-      ul.innerHTML = '';
+
+      const todoUl = document.getElementById('todo-list');
+      const doneUl = document.getElementById('done-list');
+      todoUl.innerHTML = '';
+      doneUl.innerHTML = '';
+
       todos.forEach(todo => {
         const li = document.createElement('li');
-        li.textContent = todo;
-        ul.appendChild(li);
+        li.textContent = todo.todo;
+
+        if (todo.completed) {
+          doneUl.appendChild(li);
+        } else {
+          const btn = document.createElement('button');
+          btn.textContent = 'Mark as done';
+          btn.onclick = async () => {
+            await fetch(`${backendUrl}/todos/${todo.id}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ completed: true })
+            });
+            fetchTodos();
+          };
+          li.appendChild(btn);
+          todoUl.appendChild(li);
+        }
       });
-    }
+    } 
 
     document.getElementById('todo-form').addEventListener('submit', async function(e) {
       e.preventDefault();

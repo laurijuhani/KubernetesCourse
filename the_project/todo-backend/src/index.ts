@@ -27,7 +27,8 @@ const initDb = async (retries=3, delay=3000) => {
       await client.query(`
         CREATE TABLE IF NOT EXISTS todos (
           id SERIAL PRIMARY KEY,
-          todo TEXT NOT NULL CHECK (LENGTH(todo) > 0 AND LENGTH(todo) <= 140)
+          todo TEXT NOT NULL CHECK (LENGTH(todo) > 0 AND LENGTH(todo) <= 140),
+          completed BOOLEAN NOT NULL DEFAULT FALSE
         );
       `);
       client.release();
@@ -48,9 +49,25 @@ app.use(express.json());
 
 app.get('/', async (_req, res) => {
   const client = await pool.connect();
-  const result = await client.query('SELECT todo FROM todos');
-  res.json(result.rows.map(row => row.todo));
+  const result = await client.query('SELECT * FROM todos');
+  res.json(result.rows);
   client.release();
+});
+
+
+app.put('/:id', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const completed = req.body.completed;
+  if (typeof completed === 'boolean') {
+    const client = await pool.connect();
+    await client.query('UPDATE todos SET completed = $1 WHERE id = $2', [completed, id]);
+    console.log(`Todo with ID ${id} marked as ${completed ? 'completed' : 'not completed'}`);
+    res.status(204).end();
+    client.release();
+  } else {
+    console.warn(`Invalid completion status for todo ID ${id}: ${completed}`);
+    res.status(400).json({ error: 'Invalid completion status' });
+  }
 });
 
 app.post('/', async (req, res) => {
