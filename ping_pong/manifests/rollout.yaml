@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: ping-pong
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ping-pong
+  strategy:
+    canary:
+      steps:
+      - analysis:
+          templates:
+          - templateName: pingpong-analysistemplate
+  template:
+    metadata:
+      labels:
+        app: ping-pong
+    spec:
+      containers:
+      - name: ping-pong
+        image: ping-pong:latest
+        imagePullPolicy: Never
+        envFrom:
+        - configMapRef:
+            name: ping-pong-config
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - nc -z $PGHOST $PGPORT
+          initialDelaySeconds: 3
+          periodSeconds: 5

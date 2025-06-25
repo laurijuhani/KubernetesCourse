@@ -44,7 +44,7 @@ const initDb = async (retries=3, delay=3000) => {
 initDb(); 
 
 
-app.get('/pingpong', async (req, res) => {
+app.get('/', async (req, res) => {
   const client = await pool.connect();
   const result = await client.query('SELECT count FROM counter WHERE id = 1');
   res.send(`pong ${result.rows[0].count}`);
