@@ -26,6 +26,9 @@ images:
   - name: TODO_JOB
     newName: todo-job
     newTag: "latest"
+  - name: BROADCASTER
+    newName: broadcaster
+    newTag: "latest"
 
 configMapGenerator:
   - name: todo-app-config

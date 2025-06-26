@@ -12,7 +12,7 @@ spec:
           containers:
           - name: add-todo
             image: TODO_JOB
-            imagePullPolicy: Never
+            imagePullPolicy: Always
             resources:
               requests:
                 cpu: "10m"

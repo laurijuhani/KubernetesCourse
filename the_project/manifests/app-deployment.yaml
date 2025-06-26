@@ -22,7 +22,7 @@ spec:
       containers:
         - name: todo-app
           image: TODO_APP
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "20m"

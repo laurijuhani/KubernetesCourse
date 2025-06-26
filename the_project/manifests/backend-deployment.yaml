@@ -16,7 +16,7 @@ spec:
       containers:
       - name: todo-backend
         image: TODO_BACKEND
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         env:
           - name: NATS_URL
             value: nats://my-nats.project.svc.cluster.local:4222

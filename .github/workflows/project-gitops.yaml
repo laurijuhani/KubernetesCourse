@@ -1,0 +1,63 @@
+name: Build and publish application
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs: 
+  build-publish:
+    name: Build, Push, Release
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and publish todo-app
+        run: |-
+          cd the_project/todo-app
+          docker build -t "laurijuhani/todo-app:$GITHUB_SHA" .
+          docker push "laurijuhani/todo-app:$GITHUB_SHA"
+
+      - name: Build and publish todo-backend
+        run: |-
+          cd the_project/todo-backend
+          docker build -t "laurijuhani/todo-backend:$GITHUB_SHA" .
+          docker push "laurijuhani/todo-backend:$GITHUB_SHA"
+
+      - name: Build and publish todo-job
+        run: |-
+          cd the_project/todo-job
+          docker build -t "laurijuhani/todo-job:$GITHUB_SHA" .
+          docker push "laurijuhani/todo-job:$GITHUB_SHA"
+
+      - name: Build and publish broadcaster
+        run: |-
+          cd the_project/broadcaster
+          docker build -t "laurijuhani/broadcaster:$GITHUB_SHA" .
+          docker push "laurijuhani/broadcaster:$GITHUB_SHA"
+
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Use right images
+        run: |-
+          cd the_project
+          kustomize edit set image TODO_APP=laurijuhani/todo-app:$GITHUB_SHA
+          kustomize edit set image TODO_BACKEND=laurijuhani/todo-backend:$GITHUB_SHA
+          kustomize edit set image TODO_JOB=laurijuhani/todo-job:$GITHUB_SHA
+          kustomize edit set image BROADCASTER=laurijuhani/broadcaster:$GITHUB_SHA
+
+      - name: commit kustomization.yaml to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'the_project/kustomization.yaml'
+          message: New version released ${{ github.sha }}

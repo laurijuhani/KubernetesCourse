@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
       - name: broadcaster
-        image: broadcaster:latest
-        imagePullPolicy: Never
+        image: BROADCASTER
+        imagePullPolicy: Always
         env:
           - name: NATS_URL
             value: nats://my-nats.project.svc.cluster.local:4222
