@@ -25,7 +25,7 @@ spec:
                 path: information.txt
       containers:
         - name: log-output
-          image: log-output:latest
+          image: LOG_OUTPUT
           imagePullPolicy: Never
           readinessProbe:
             httpGet:
@@ -46,7 +46,7 @@ spec:
                   name: log-output-config
                   key: MESSAGE
         - name: log-output-generator
-          image: log-output-generator:latest
+          image: LOG_OUTPUT_GENERATOR
           imagePullPolicy: Never
           volumeMounts:
             - name: log-volume

@@ -16,6 +16,8 @@ env:
 
 jobs: 
   build-publish-deploy:
+    # Disable this job.
+    if: false 
     name: Build, Publish and Deploy
     runs-on: ubuntu-latest
 
