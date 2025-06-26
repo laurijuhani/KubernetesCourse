@@ -43,6 +43,7 @@ jobs:
 
       - name: Use right images
         run: |-
+          cd log_output
           kustomize edit set image PING_PONG=laurijuhani/ping-pong:$GITHUB_SHA
           kustomize edit set image LOG_OUTPUT=laurijuhani/log-output:$GITHUB_SHA
           kustomize edit set image LOG_OUTPUT_GENERATOR=laurijuhani/log-output-generator:$GITHUB_SHA
