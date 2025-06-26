@@ -1,39 +1,39 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - manifests/app-deployment.yaml
-  - manifests/backend-deployment.yaml
-  - manifests/add-todo-cronjob.yaml
-  - manifests/httproute.yaml
-  - manifests/gateway.yaml
-  - manifests/backend-service.yaml
-  - manifests/app-service.yaml
-  - manifests/backend-configmap.yaml
-  - manifests/postgres-service.yaml
-  - manifests/postgres-statefulset.yaml
-  - manifests/backup-cronjob.yaml
-  - manifests/pv/persistentvolumeclaim.yaml
-  - manifests/pv/persistentvolume.yaml
-  - manifests/broadcaster-deployment.yaml
+- manifests/app-deployment.yaml
+- manifests/backend-deployment.yaml
+- manifests/add-todo-cronjob.yaml
+- manifests/httproute.yaml
+- manifests/gateway.yaml
+- manifests/backend-service.yaml
+- manifests/app-service.yaml
+- manifests/backend-configmap.yaml
+- manifests/postgres-service.yaml
+- manifests/postgres-statefulset.yaml
+- manifests/backup-cronjob.yaml
+- manifests/pv/persistentvolumeclaim.yaml
+- manifests/pv/persistentvolume.yaml
+- manifests/broadcaster-deployment.yaml
   
 images:
-  - name: TODO_APP
-    newName: todo-app
-    newTag: "latest"
-  - name: TODO_BACKEND
-    newName: todo-backend
-    newTag: "latest"
-  - name: TODO_JOB
-    newName: todo-job
-    newTag: "latest"
-  - name: BROADCASTER
-    newName: broadcaster
-    newTag: "latest"
+- name: BROADCASTER
+  newName: laurijuhani/broadcaster
+  newTag: 7c9d13ffa5d7a67184d83fce29f2907adf19d9f1
+- name: TODO_APP
+  newName: laurijuhani/todo-app
+  newTag: 7c9d13ffa5d7a67184d83fce29f2907adf19d9f1
+- name: TODO_BACKEND
+  newName: laurijuhani/todo-backend
+  newTag: 7c9d13ffa5d7a67184d83fce29f2907adf19d9f1
+- name: TODO_JOB
+  newName: laurijuhani/todo-job
+  newTag: 7c9d13ffa5d7a67184d83fce29f2907adf19d9f1
 
 configMapGenerator:
-  - name: todo-app-config
-    namespace: project
-    literals:
-      - BACKEND_URL=http://localhost:8081
-      - PORT=3000
-      - CACHE_DIR=/app/cache
+- literals:
+  - BACKEND_URL=http://localhost:8081
+  - PORT=3000
+  - CACHE_DIR=/app/cache
+  name: todo-app-config
+  namespace: project
