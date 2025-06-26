@@ -17,10 +17,10 @@ resources:
 images:
 - name: LOG_OUTPUT
   newName: laurijuhani/log-output
-  newTag: a992dc18f5e95a27c092ad6add0821f7638b88e6
+  newTag: b2f92570b147755c8145b84a461f8ca6af2f2fa8
 - name: LOG_OUTPUT_GENERATOR
   newName: laurijuhani/log-output-generator
-  newTag: a992dc18f5e95a27c092ad6add0821f7638b88e6
+  newTag: b2f92570b147755c8145b84a461f8ca6af2f2fa8
 - name: PING_PONG
   newName: laurijuhani/ping-pong
-  newTag: a992dc18f5e95a27c092ad6add0821f7638b88e6
+  newTag: b2f92570b147755c8145b84a461f8ca6af2f2fa8
