@@ -77,9 +77,11 @@ jobs:
           add: 'the_project/overlays/staging/kustomization.yaml'
           message: New staging version released ${{ github.sha }}
 
-      - name: Checkout main branch
+      - name: Fetch all branches and checkout main branch
         if: startsWith(github.ref, 'refs/tags/')
-        run: git checkout main
+        run: | 
+          git fetch --all
+          git checkout main
 
       - name: commit kustomization.yaml (production)
         if: startsWith(github.ref, 'refs/tags/')
