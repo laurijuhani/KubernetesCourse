@@ -77,7 +77,16 @@ jobs:
           add: 'the_project/overlays/staging/kustomization.yaml'
           message: New staging version released ${{ github.sha }}
 
+      - name: Fetch all branches
+        if: startsWith(github.ref, 'refs/tags/')
+        run: git fetch --all
     
+      - name: Checkout main branch
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          git checkout main
+          git merge --ff-only $GITHUB_SHA || true
+          
       - name: commit kustomization.yaml (production)
         if: startsWith(github.ref, 'refs/tags/')
         uses: EndBug/add-and-commit@v9
