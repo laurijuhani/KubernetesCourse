@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: broadcaster
-  namespace: project
 spec:
   replicas: 6
   selector:
@@ -19,7 +18,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: NATS_URL
-            value: nats://my-nats.project.svc.cluster.local:4222
+            value: nats://my-nats:4222
           - name: TELEGRAM_BOT_TOKEN
             valueFrom:
               secretKeyRef:

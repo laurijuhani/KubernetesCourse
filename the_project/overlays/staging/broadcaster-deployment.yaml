@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broadcaster
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: broadcaster
+        env:
+        - name: BROADCASTER_MODE
+          value: "log"
+        envFrom: []

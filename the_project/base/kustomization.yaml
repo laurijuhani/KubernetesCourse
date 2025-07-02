@@ -1,5 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: placeholder
 resources:
   - manifests/app-deployment.yaml
   - manifests/backend-deployment.yaml
@@ -11,28 +12,12 @@ resources:
   - manifests/backend-configmap.yaml
   - manifests/postgres-service.yaml
   - manifests/postgres-statefulset.yaml
-  - manifests/backup-cronjob.yaml
   - manifests/pv/persistentvolumeclaim.yaml
   - manifests/pv/persistentvolume.yaml
   - manifests/broadcaster-deployment.yaml
   
-images:
-  - name: TODO_APP
-    newName: todo-app
-    newTag: "latest"
-  - name: TODO_BACKEND
-    newName: todo-backend
-    newTag: "latest"
-  - name: TODO_JOB
-    newName: todo-job
-    newTag: "latest"
-  - name: BROADCASTER
-    newName: broadcaster
-    newTag: "latest"
-
 configMapGenerator:
   - name: todo-app-config
-    namespace: project
     literals:
       - BACKEND_URL=http://localhost:8081
       - PORT=3000

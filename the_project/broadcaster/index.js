@@ -3,6 +3,7 @@ const { connect, StringCodec } = require('nats');
 const NATS_URL = process.env.NATS_URL; 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const LOGGING_ONLY = process.env.BROADCASTER_MODE === 'log'; 
 
 const sc = StringCodec();
 
@@ -16,7 +17,11 @@ const main = async () => {
     const { event, todo } = msg;
     const actualTodo = todo.todo;
     const message = `Event: ${event}\nId: ${actualTodo.id}\nTodo: ${actualTodo.todo}\nCompleted: ${actualTodo.completed}`;
-    await sendTelegramMessage(message);
+    if (LOGGING_ONLY) {
+      console.log(message);
+    } else {
+      await sendTelegramMessage(message);
+    }
   }
 }; 
 
