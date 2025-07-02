@@ -2,20 +2,20 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: production
 resources:
-  - ./../../base
-  - backup-cronjob.yaml
+- ./../../base
+- backup-cronjob.yaml
 namePrefix: production-
 
 images:
-  - name: TODO_APP
-    newName: todo-app
-    newTag: "latest"
-  - name: TODO_BACKEND
-    newName: todo-backend
-    newTag: "latest"
-  - name: TODO_JOB
-    newName: todo-job
-    newTag: "latest"
-  - name: BROADCASTER
-    newName: broadcaster
-    newTag: "latest"
+- name: BROADCASTER
+  newName: laurijuhani/broadcaster
+  newTag: 237537995517186536f1fe77ff85dae93a3a3849
+- name: TODO_APP
+  newName: laurijuhani/todo-app
+  newTag: 237537995517186536f1fe77ff85dae93a3a3849
+- name: TODO_BACKEND
+  newName: laurijuhani/todo-backend
+  newTag: 237537995517186536f1fe77ff85dae93a3a3849
+- name: TODO_JOB
+  newName: laurijuhani/todo-job
+  newTag: 237537995517186536f1fe77ff85dae93a3a3849
