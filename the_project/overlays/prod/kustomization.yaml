@@ -9,13 +9,13 @@ namePrefix: production-
 images:
 - name: BROADCASTER
   newName: laurijuhani/broadcaster
-  newTag: 237537995517186536f1fe77ff85dae93a3a3849
+  newTag: 627128f52a12bfac308e6225f6e64650121cb2ef
 - name: TODO_APP
   newName: laurijuhani/todo-app
-  newTag: 237537995517186536f1fe77ff85dae93a3a3849
+  newTag: 627128f52a12bfac308e6225f6e64650121cb2ef
 - name: TODO_BACKEND
   newName: laurijuhani/todo-backend
-  newTag: 237537995517186536f1fe77ff85dae93a3a3849
+  newTag: 627128f52a12bfac308e6225f6e64650121cb2ef
 - name: TODO_JOB
   newName: laurijuhani/todo-job
-  newTag: 237537995517186536f1fe77ff85dae93a3a3849
+  newTag: 627128f52a12bfac308e6225f6e64650121cb2ef
