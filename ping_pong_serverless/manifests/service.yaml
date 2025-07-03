@@ -1,0 +1,21 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ping-pong-serverless
+spec:
+  template:
+    spec:
+      containers:
+        - image: laurijuhani/ping-pong:latest
+          imagePullPolicy: Always
+          env:
+            - name: PGHOST
+              value: "pingpong-postgres-svc.default.svc.cluster.local"
+            - name: PGUSER
+              value: "pingpong"
+            - name: PGPASSWORD
+              value: "pingpong"
+            - name: PGDATABASE
+              value: "pingpong"
+            - name: PGPORT
+              value: "5432"

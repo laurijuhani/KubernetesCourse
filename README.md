@@ -64,4 +64,5 @@
 - [5.2.](https://github.com/laurijuhani/KubernetesCourse/tree/5.2/istio)
 - [5.5.](https://github.com/laurijuhani/KubernetesCourse/tree/5.5/5.5.md)
 - [5.6.](https://github.com/laurijuhani/KubernetesCourse/tree/5.6/serverless)
+- [5.7.](https://github.com/laurijuhani/KubernetesCourse/tree/5.7/ping_pong_serverless)
 
