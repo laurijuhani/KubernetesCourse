@@ -11,13 +11,13 @@ namePrefix: staging-
 images:
 - name: BROADCASTER
   newName: laurijuhani/broadcaster
-  newTag: eac25197039e5be76428aef68fe89a5f3759c292
+  newTag: 2cd028e4383728d7ac5ccc00acec12b7d41995df
 - name: TODO_APP
   newName: laurijuhani/todo-app
-  newTag: eac25197039e5be76428aef68fe89a5f3759c292
+  newTag: 2cd028e4383728d7ac5ccc00acec12b7d41995df
 - name: TODO_BACKEND
   newName: laurijuhani/todo-backend
-  newTag: eac25197039e5be76428aef68fe89a5f3759c292
+  newTag: 2cd028e4383728d7ac5ccc00acec12b7d41995df
 - name: TODO_JOB
   newName: laurijuhani/todo-job
-  newTag: eac25197039e5be76428aef68fe89a5f3759c292
+  newTag: 2cd028e4383728d7ac5ccc00acec12b7d41995df
