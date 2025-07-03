@@ -62,4 +62,5 @@
 
 - [5.1.](https://github.com/laurijuhani/KubernetesCourse/tree/5.1/dummy_site)
 - [5.2.](https://github.com/laurijuhani/KubernetesCourse/tree/5.2/istio)
+- [5.5.](https://github.com/laurijuhani/KubernetesCourse/tree/5.5/5.5.md)
 
