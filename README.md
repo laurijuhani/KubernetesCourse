@@ -57,3 +57,9 @@
 - [4.7.](https://github.com/laurijuhani/KubernetesCourse/tree/4.7/log_output)
 - [4.8.](https://github.com/laurijuhani/KubernetesCourse/tree/4.8/the_project)
 - [4.9.](https://github.com/laurijuhani/KubernetesCourse/tree/4.9/the_project)
+
+### Chapter 6 
+
+- [5.1.](https://github.com/laurijuhani/KubernetesCourse/tree/5.1/dummy_site)
+- [5.2.](https://github.com/laurijuhani/KubernetesCourse/tree/5.2/istio)
+
